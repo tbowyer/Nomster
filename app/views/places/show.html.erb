@@ -8,22 +8,18 @@
 <% if @place.latitude.present? and @place.longitude.present? %>
 
 <script>
-
 function initMap() {
 var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
-
 var map = new google.maps.Map(document.getElementById('map'), {
 zoom: 12,
 center: myLatLng
 });
-
 var marker = new google.maps.Marker({
 position: myLatLng,
 map: map,
 title: 'Hello World!'
 });
 }
-
 </script>
 
 <script async defer
@@ -45,9 +41,7 @@ title: 'Hello World!'
 
 
 <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Add a comment
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -61,11 +55,12 @@ title: 'Hello World!'
 	      <div class="modal-body">
 			<%= f.input :message %>
 			<%= f.input :rating, :as => :select, :collection => Comment::RATINGS %>
-
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <%= f.submit "Add a Comment", :class => 'btn btn-primary' %>
+	      	<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+    			Add a comment
+  			</button>
+	    
 	        <% end %>
       </div>
     </div>
@@ -73,11 +68,15 @@ title: 'Hello World!'
 </div>
 
 
-
-<h1>Comments</h1>
+<div class="col-xs-10 col-xs-offset-1">
+	<h1 class="pull-left">Comments</h1>
+	<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+    Add a comment
+  </button>
+<div class="clear"></div>
 
 <% @place.comments.each do |comment| %>
-	<div>
+	<div class="col-xs-12 col-sm-6">
 		<blockquote>
 			<% if comment.humanized_rating.present? %>
 				<b><%= comment.humanized_rating %></b> 
