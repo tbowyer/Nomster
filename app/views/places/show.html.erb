@@ -3,6 +3,13 @@
 	<i><%= @place.address %></i>
 	<br /><br />
 	<p><%= @place.description %></p>
+	<% @place.photos.each do |photo| %>
+		<div class="col-xs-12 col-sm-6">
+			<%= image_tag photo.picture %>
+			<%= photo.caption %>			
+		</div>
+	<% end %>
+
 
 
 <% if @place.latitude.present? and @place.longitude.present? %>
@@ -85,4 +92,12 @@ title: 'Hello World!'
 			<small><%= comment.user.email %></small>
 		</blockquote>
 	</div>
+<% end %>
+
+
+<div class="clear"></div>
+<%= simple_form_for @photo, :url => place_photos_path(@place) do |f| %>
+  <%= f.input :caption %>
+  <%= f.input :picture %>
+  <%= f.submit "Add a Photo", :class => 'btn btn-primary' %>
 <% end %>
